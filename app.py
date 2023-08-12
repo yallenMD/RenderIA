@@ -27,7 +27,7 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
 handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
-#Twelve API Key
+# Twelve API Key
 api_key = os.getenv('TWELVEDATA_API_KEY')
 
 
