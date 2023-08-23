@@ -46,6 +46,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+    
 
 def called_chat(message):
     # Convert the message to lowercase and strip any leading or trailing whitespace
@@ -56,6 +57,16 @@ def called_chat(message):
         return True
     else:
         return False
+
+def topic_classification(text):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price. Make sure to return ONLY the option, meaning only one word. '},
+                    {"role": "user", "content": text}
+                 ])
+    # 重組回應
+    answer = response['choices'][0]['message']['content']
+    return answer
         
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
