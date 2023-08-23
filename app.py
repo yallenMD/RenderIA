@@ -46,7 +46,7 @@ def callback():
         abort(400)
     return 'OK'
 
-def heychat(message):
+def called_chat(message):
     # Convert the message to lowercase and strip any leading or trailing whitespace
     message = message.lower().strip()
     
@@ -60,7 +60,7 @@ def heychat(message):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if heychat(msg) = True:
+    if called_chat(msg):
         message = GPT_message()
         line_bot_api.reply_message(event.reply_token, message)
     if '最新合作廠商' in msg:
