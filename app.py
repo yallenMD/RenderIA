@@ -46,11 +46,23 @@ def callback():
         abort(400)
     return 'OK'
 
-
+def heychat(message):
+    # Convert the message to lowercase and strip any leading or trailing whitespace
+    message = message.lower().strip()
+    
+    # Check if the message starts with "hey chat"
+    if message.startswith("hey chat"):
+        return True
+    else:
+        return False
+        
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    if heychat(msg) = True:
+        message = GPT_message()
+        line_bot_api.reply_message(event.reply_token, message)
     if '最新合作廠商' in msg:
         message = imagemap_message()
         line_bot_api.reply_message(event.reply_token, message)
