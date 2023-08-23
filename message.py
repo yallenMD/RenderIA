@@ -2,6 +2,7 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+import openai
 
 def GPT_message(text):
     response = openai.ChatCompletion.create(
