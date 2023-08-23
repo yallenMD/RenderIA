@@ -3,6 +3,16 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
+def GPT_message(text):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "system", "content": 'You are a helpful financial analyst who understands stocks and crypto'},
+                    {"role": "user", "content": text}
+                 ])
+    # 重組回應
+    answer = response['choices'][0]['message']['content']
+    return answer
+    
 #ImagemapSendMessage(組圖訊息)
 def imagemap_message():
     message = ImagemapSendMessage(
