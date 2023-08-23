@@ -62,7 +62,7 @@ def called_chat(message):
 def handle_message(event):
     msg = event.message.text
     if called_chat(msg):
-        message = GPT_message(msg)
+        message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
     elif '最新合作廠商' in msg:
         message = imagemap_message()
