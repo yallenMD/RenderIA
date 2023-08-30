@@ -66,7 +66,7 @@ def topic_classification(text):
                  ])
     # 重組回應
     answer = response['choices'][0]['message']['content']
-    answer = answer.split("")
+    answer = answer.split(" ")
     return answer
 
 
