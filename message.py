@@ -7,6 +7,12 @@ import tempfile, os
 import datetime
 import time
 
+line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
+# Channel Secret
+handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
+# Twelve API Key
+api_key = os.getenv('TWELVEDATA_API_KEY')
+
 def GPT_message(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
@@ -18,7 +24,7 @@ def GPT_message(text):
     return answer
 
 def price(ticker,api_key):
-    url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={apikey}"
+    url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
     response = requests.get(url).json()
     return response
     
