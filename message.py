@@ -18,7 +18,9 @@ def GPT_message(text):
     return answer
 
 def price(ticker,apikey):
-    url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={apikey"
+    url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={apikey}"
+    response = requests.get(url).json()
+    return response
     
     
     
