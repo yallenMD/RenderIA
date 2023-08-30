@@ -78,7 +78,7 @@ def handle_message(event):
         message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
     elif  topic_classification(msg)[0] == 'Price' and topic_classification(msg)[1] != 'N/A':
-        ticker = topic_classification(msg)[0]
+        ticker = topic_classification(msg)[1]
         message = price(ticker, api_key)
         line_bot_api.reply_message(event.reply_token, message)
     elif '最新活動訊息' in msg:
