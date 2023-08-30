@@ -65,9 +65,10 @@ def topic_classification(text):
                     {"role": "user", "content": text}
                  ])
     # 重組回應
-    answer = response['choices'][0]['message']['content']
+    answer = response['choices'][0]['message']['content'].split("")
     return answer
-        
+
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -75,9 +76,10 @@ def handle_message(event):
     if called_chat(msg):
         message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
-   # elif topic_classification(msg) = 'Price':
-   #     message = imagemap_message()
-   #     line_bot_api.reply_message(event.reply_token, message)
+    elif  topic_classification(msg)[0] == 'Price' and topic_classification(msg)[1] != 'N/A':
+        ticker = topic_classification(msg)[0]
+        message = price(ticker, api_key)
+        line_bot_api.reply_message(event.reply_token, message)
     elif '最新活動訊息' in msg:
         message = buttons_message()
         line_bot_api.reply_message(event.reply_token, message)
