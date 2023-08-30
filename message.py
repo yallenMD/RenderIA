@@ -6,6 +6,7 @@ import openai
 import tempfile, os
 import datetime
 import time
+import requests
 
 line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
