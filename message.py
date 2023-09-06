@@ -27,9 +27,10 @@ def GPT_message(text):
 
 def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
-    response = requests.get(url).json()
-    price = response.json()
-    return price['price'][:-3]
+    response = requests.get(url)
+    response = response.json()
+    price = response['price']
+    return price[:-3] #remove decimal places
     
     
     
