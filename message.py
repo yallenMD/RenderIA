@@ -7,6 +7,7 @@ import tempfile, os
 import datetime
 import time
 import requests
+import json
 
 line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
@@ -27,8 +28,8 @@ def GPT_message(text):
 def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
     response = requests.get(url).json()
-    price = response['price'][:-3]
-    return price
+    price = response.json()
+    return price['price'][:-3]
     
     
     
