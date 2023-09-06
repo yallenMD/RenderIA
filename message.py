@@ -30,7 +30,7 @@ def price(ticker,api_key):
     response = requests.get(url)
     response = response.json()
     price = response['price']
-    return price[:-3] #remove decimal places
+    return price
     
     
     
