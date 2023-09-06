@@ -79,7 +79,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif  topic_classification(msg)[0] == 'Price' and topic_classification(msg)[1] != 'N/A':
         ticker = topic_classification(msg)[1]
-        message = price(ticker, api_key)
+        message = TextSendMessage(text=price(ticker, api_key))
         line_bot_api.reply_message(event.reply_token, message)
     elif '最新活動訊息' in msg:
         message = buttons_message()
