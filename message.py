@@ -43,8 +43,8 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
     url = f"https://api.twelvedata.com/currency_conversion?symbol={exchange_from}/{exchange_to}&amount={amount}&apikey={api_key}"
     response = requests.get(url)
     response = response.json()
-    original_amount = response['amount']
-    new_amount = response['timestamp']
+    original_amount = amount
+    new_amount = response['amount']
     return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
     
     
