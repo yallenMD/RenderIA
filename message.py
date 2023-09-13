@@ -31,6 +31,22 @@ def price(ticker,api_key):
     response = response.json()
     price = response['price']
     return price
+
+def exchange_rate(exchange_from,exchange_to,api_key):
+    url = f"https://api.twelvedata.com/exchange_rate?symbol={exchange_from}/{exchange_to}&apikey={api_key}"
+    response = requests.get(url)
+    response = response.json()
+    exchange_rate = response['rate']
+    return exchange_rate
+
+def currency_conversion(exchange_from,exchange_to,amount,api_key):
+    url = f"https://api.twelvedata.com/currency_conversion?symbol={exchange_from}/{exchange_to}&amount={amount}&apikey={api_key}"
+    response = requests.get(url)
+    response = response.json()
+    original_amount = response['amount']
+    new_amount = response['timestamp']
+    return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
+    
     
     
     
