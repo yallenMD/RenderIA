@@ -30,6 +30,8 @@ line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 # Twelve API Key
 api_key = os.getenv('TWELVEDATA_API_KEY')
+# Open AI API Key
+open.api_key = os.getenv('OPENAI_API_KEY')
 
 
 # 監聽所有來自 /callback 的 Post Request
