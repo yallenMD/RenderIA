@@ -8,6 +8,7 @@ import datetime
 import time
 import requests
 import json
+from newsapi import NewsApiClient
 
 line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
@@ -16,6 +17,11 @@ handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 api_key = os.getenv('TWELVEDATA_API_KEY')
 # Open AI API Key
 openai.api_key = os.getenv('OPENAI_API_KEY')
+#News API Key
+news_key = os.getenv('NEWS_API_KEY')
+
+# Init
+newsapi = NewsApiClient(api_key='c3de5d94debd44cf8c9befe9fb4b3287')
 
 def GPT_message(text):
     response = openai.ChatCompletion.create(
@@ -48,6 +54,11 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
     original_amount = amount
     new_amount = response['amount']
     return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
+
+def news(subject,news_key):
+    all_articles = newsapi.get_top_headlines(f'https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}')
+    return all_articles
+
     
     
     
