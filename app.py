@@ -32,6 +32,8 @@ handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 api_key = os.getenv('TWELVEDATA_API_KEY')
 # Open AI API Key
 openai.api_key = os.getenv('OPENAI_API_KEY')
+#News API Key
+news_key = os.getenv('NEWS_API_KEY')
 
 
 # 監聽所有來自 /callback 的 Post Request
@@ -63,7 +65,7 @@ def called_chat(message):
 def topic_classification(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price. Make sure to return ONLY the option, meaning only one word. Also, if there is a certain stock specified in the request such as Microsoft, also return the ticker symbol of the stock. Otherwise, return N/A. So in summary you will return something following this format: "Option Ticker"'},
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency. Make sure to return ONLY the option, meaning only one word. Also, if there is a certain stock specified in the request such as Microsoft, also return the ticker symbol of the stock. Otherwise, return N/A. So in summary you will return something following this format: "Option Ticker"'},
                     {"role": "user", "content": text}
                  ])
     # 重組回應
@@ -79,16 +81,23 @@ def handle_message(event):
     if called_chat(msg):
         message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
+
     elif  topic_classification(msg)[0] == 'Price' and topic_classification(msg)[1] != 'N/A':
         ticker = topic_classification(msg)[1]
         message = TextSendMessage(text=price(ticker, api_key))
         line_bot_api.reply_message(event.reply_token, message)
-    elif '最新活動訊息' in msg:
-        message = buttons_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '註冊會員' in msg:
-        message = Confirm_Template()
-        line_bot_api.reply_message(event.reply_token, message)
+
+    elif topic_classification(msg)[0] == 'News':
+        if topic_classification(msg)[1] != 'N/A'
+            message = TextSendMessage(text=news(Stocks,news_key))
+            line_bot_api.reply_message(event.reply_token, message)
+        else:
+            topic = topic_classification(msg)[1]
+            message = TextSendMessage(text=news(topic,news_key))
+            line_bot_api.reply_message(event.reply_token, message)
+            
+    elif topic_classification(msg)[0] == 'Currency':
+        if topic_classification(msg)[1] != 'N/A'
     elif '旋轉木馬' in msg:
         message = Carousel_Template()
         line_bot_api.reply_message(event.reply_token, message)
