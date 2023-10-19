@@ -98,6 +98,7 @@ def handle_message(event):
 
     elif topic_classification(msg)[0] == 'Currency':
         if topic_classification(msg)[1] != 'N/A':
+            pass
     elif '旋轉木馬' in msg:
         message = Carousel_Template()
         line_bot_api.reply_message(event.reply_token, message)
