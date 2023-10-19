@@ -88,8 +88,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif topic_classification(msg)[0] == 'News':
-        if topic_classification(msg)[1] != 'N/A':
-            message = TextSendMessage(text=news(Stocks,news_key))
+        if topic_classification(msg)[1] = 'N/A':
+            message = TextSendMessage(text=news('Stocks',news_key))
             line_bot_api.reply_message(event.reply_token, message)
         else:
             topic = topic_classification(msg)[1]
