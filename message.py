@@ -57,7 +57,7 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
 
 def news(subject,news_key):
     all_articles = newsapi.get_top_headlines(f'https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}')
-    first_five_articles = [(all_articls['title'], article['url']) for article in all_articles['articles'][:5]]
+    first_five_articles = [(all_articles['title'], all_articles['url']) for article in all_articles['articles'][:5]]
     for title, url in first_five_articles:
         return(f"Title:", {title}, "URL:", {url}, "---")
 
