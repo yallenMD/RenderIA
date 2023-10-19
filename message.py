@@ -59,7 +59,7 @@ def news(subject,news_key):
     all_articles = newsapi.get_top_headlines(f'https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}')
     first_five_articles = [(all_articls['title'], article['url']) for article in response['articles'][:5]]
     for title, url in first_five_articles:
-        return(f"Title:", {title}, "URL:" {url}, "---")
+        return(f"Title:", {title}, "URL:", {url}, "---")
 
     
     
