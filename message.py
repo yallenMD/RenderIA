@@ -61,7 +61,7 @@ def news(subject,news_key):
     response = ""
     for title, url in first_five_articles:
         response += f"Title: {title}\nURL: {url}\n---\n"
-    return response
+    return ("hello this is a test")
     
     
     
