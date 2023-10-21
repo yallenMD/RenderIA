@@ -60,7 +60,7 @@ def news(subject,news_key):
     first_five_articles = [(article['title'], article['url']) for article in all_articles['articles'][:5]]
     response = ""
     for title, url in first_five_articles:
-        response += f"Title: {title}\nURL: {url}\n---n\"
+        response += f"Title: {title}\nURL: {url}\n---\n"
     return response
     
     
