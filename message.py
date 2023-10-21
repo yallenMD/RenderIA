@@ -56,7 +56,8 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
     return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
 
 def news(subject,news_key):
-    all_articles = newsapi.get_top_headlines(q=subject, apiKey=news_key)
+    newsapi = NewsApiClient(api_key=news_key)
+    all_articles = newsapi.get_top_headlines(q=subject)
     first_five_articles = [(article['title'], article['url']) for article in all_articles['articles'][:5]]
     response = ""
     for title, url in first_five_articles:
