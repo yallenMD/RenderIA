@@ -78,11 +78,11 @@ def news_carousel(subject,news_key):
     url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
     response = requests.get(url)
     response = response.json()
-    titles = [summarize(article['title']) for article in response['articles']]
-    descriptions = [summarize(article['description']) for article in response['articles']]
+    titles = [summarize(article['title']) for article in response['articles'][:5]]
+    descriptions = [summarize(article['description']) for article in response['articles'][:5]]
 
-    urls = [article['url'] for article in response['articles']]
-    images = [article['urlToImage'] for article in response['articles']]
+    urls = [article['url'] for article in response['articles'][:5]]
+    images = [article['urlToImage'] for article in response['articles'][:5]]
 
 
     message = TemplateSendMessage(
