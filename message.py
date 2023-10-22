@@ -114,7 +114,7 @@ def news_carousel(subject,news_key):
                 CarouselColumn(
                     thumbnail_image_url=images[2],
                     title=titles[2],
-                    text=decriptions[2],
+                    text=descriptions[2],
                     actions=[
                         URITemplateAction(
                             label='GO TO ARTICLE',
