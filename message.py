@@ -30,17 +30,19 @@ def GPT_message(text):
                  ])
     # 重組回應
     answer = response['choices'][0]['message']['content']
-    return answer
 
-def summarize(description):
+def summarize(text):
+    if len(text) <= 40:
+        return text
+    
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the title and descriptions of the news articles you are given into 40 characters or less. If they are already 40 characters or less, then you do not need to do anything.'},
-                    {"role": "user", "content": description}
+        messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the title and descriptions of the news articles you are given into 40 characters or less.'},
+                    {"role": "user", "content": text}
                  ])
     # 重組回應
     answer = response['choices'][0]['message']['content']
-    return answer
+    return answer if len(answer) <= 40 else answer[:40]
 
 def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
