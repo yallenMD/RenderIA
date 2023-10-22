@@ -58,10 +58,10 @@ def news(subject,news_key):
     url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
     response = requests.get(url)
     response = response.json()
-    first_five_articles = [(article['title'], article['url']) for article in response['articles'][:5]]
+    first_five_articles = [(article['title'], article['url'], article['urlToImage']) for article in response['articles'][:5]]
     articles = ""
-    for title, url in first_five_articles:
-        articles += f"Title: {title}\nURL: {url}\n---\n"
+    for title, url, urlToImage in first_five_articles:
+        articles += f"Title: {title}\nURL: {url}\nImage: {urlToImage}\n---\n"
     return articles
     
     
