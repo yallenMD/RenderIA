@@ -32,6 +32,16 @@ def GPT_message(text):
     answer = response['choices'][0]['message']['content']
     return answer
 
+def summarize(description):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the title and descriptions of the news articles you are given into 40 characters or less. If they are already 40 characters or less, then you do not need to do anything.'},
+                    {"role": "user", "content": text}
+                 ])
+    # 重組回應
+    answer = response['choices'][0]['message']['content']
+    return answer
+
 def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
     response = requests.get(url)
@@ -69,7 +79,8 @@ def news_carousel(subject,news_key):
     response = requests.get(url)
     response = response.json()
     titles = [article['title'] for article in response['articles']]
-    descriptions = [article['description'] for article in response['articles']]
+    descriptions = [summarize(article['description']) for article in response['articles']]
+
     urls = [article['url'] for article in response['articles']]
     images = [article['urlToImage'] for article in response['articles']]
 
@@ -90,40 +101,24 @@ def news_carousel(subject,news_key):
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuo7n2_HNSFuT3T7Z9PUZmn1SDM6G6-iXfRC3FxdGTj7X1Wr0RzA',
-                    title='這是第二塊模板',
-                    text='副標題可以自己改',
+                    thumbnail_image_url=images[1],
+                    title=titles[1],
+                    text=descriptions[1],
                     actions=[
-                        PostbackTemplateAction(
-                            label='回傳一個訊息',
-                            data='這是ID=2'
-                        ),
-                        MessageTemplateAction(
-                            label='用戶發送訊息',
-                            text='我知道這是2'
-                        ),
                         URITemplateAction(
-                            label='進入2的網頁',
-                            uri='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Number_2_in_light_blue_rounded_square.svg/200px-Number_2_in_light_blue_rounded_square.svg.png'
+                            label='GO TO ARTICLE',
+                            uri=urls[1]
                         )
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Number_3_in_yellow_rounded_square.svg/200px-Number_3_in_yellow_rounded_square.svg.png',
-                    title='這是第三個模塊',
-                    text='最多可以放十個',
+                    thumbnail_image_url=images[2],
+                    title=titles[2],
+                    text=decriptions[2],
                     actions=[
-                        PostbackTemplateAction(
-                            label='回傳一個訊息',
-                            data='這是ID=3'
-                        ),
-                        MessageTemplateAction(
-                            label='用戶發送訊息',
-                            text='我知道這是3'
-                        ),
                         URITemplateAction(
-                            label='uri2',
-                            uri='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Number_3_in_yellow_rounded_square.svg/200px-Number_3_in_yellow_rounded_square.svg.png'
+                            label='GO TO ARTICLE',
+                            uri=urls[2]
                         )
                     ]
                 )
