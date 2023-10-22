@@ -19,9 +19,8 @@ api_key = os.getenv('TWELVEDATA_API_KEY')
 openai.api_key = os.getenv('OPENAI_API_KEY')
 #News API Key
 news_key = os.getenv('NEWS_API_KEY')
-
 # Init
-newsapi = NewsApiClient(api_key='c3de5d94debd44cf8c9befe9fb4b3287')
+newsapi = NewsApiClient(api_key=news_key)
 
 def GPT_message(text):
     response = openai.ChatCompletion.create(
@@ -56,8 +55,7 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
     return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
 
 def news(subject,news_key):
-    newsapi = NewsApiClient(api_key=news_key)
-    all_articles = newsapi.get_top_headlines(q=subject)
+    all_articles = newsapi.get_top_headlines(q='bitcoin', sources='bbc-news,the-verge', category='business', language='en', country='us')
     first_five_articles = [(article['title'], article['url']) for article in all_articles['articles'][:5]]
     response = ""
     for title, url in first_five_articles:
