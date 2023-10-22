@@ -37,7 +37,7 @@ def summarize(text):
     
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the title and descriptions of the news articles you are given into 40 characters or less.'},
+        messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the title and descriptions of the news articles you are given into 40 characters or less. STRICTLY 40 CHARACTERS OR LESS INCLUDING SPACES.'},
                     {"role": "user", "content": text}
                  ])
     # 重組回應
