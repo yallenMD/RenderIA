@@ -42,7 +42,7 @@ def summarize(text):
                  ])
     # 重組回應
     answer = response['choices'][0]['message']['content']
-    return answer if len(answer) <= 40 else answer[:40]
+    return answer if len(answer) <= 40 else answer[:37]+'...'
 
 def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
