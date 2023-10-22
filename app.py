@@ -93,7 +93,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, message)
         else:
             topic = topic_classification(msg)[1]
-            message = TextSendMessage(text=news(topic,news_key))
+            message = TextSendMessage(text=news_carousel(topic,news_key))
             line_bot_api.reply_message(event.reply_token, message)
 
     elif topic_classification(msg)[0] == 'Currency':

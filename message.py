@@ -63,7 +63,74 @@ def news(subject,news_key):
     for title, url, urlToImage in first_five_articles:
         articles += f"Title: {title}\nURL: {url}\nImage: {urlToImage}\n---\n"
     return articles
-    
+
+def news_carousel(subject,news_key):
+    url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
+    response = requests.get(url)
+    response = response.json()
+    titles = [article['title'] for article in response['articles']]
+    descriptions = [article['description'] for article in response['articles']]
+    urls = [article['url'] for article in response['articles']]
+    images = [article['urlToImage'] for article in response['articles']]
+
+
+    message = TemplateSendMessage(
+        alt_text='Top headlines requested by you',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url=images[0],
+                    title=titles[0],
+                    text=descriptions[0],
+                    actions=[
+                        URITemplateAction(
+                            label='GO TO ARTICLE',
+                            uri=urls[0]
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuo7n2_HNSFuT3T7Z9PUZmn1SDM6G6-iXfRC3FxdGTj7X1Wr0RzA',
+                    title='這是第二塊模板',
+                    text='副標題可以自己改',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='回傳一個訊息',
+                            data='這是ID=2'
+                        ),
+                        MessageTemplateAction(
+                            label='用戶發送訊息',
+                            text='我知道這是2'
+                        ),
+                        URITemplateAction(
+                            label='進入2的網頁',
+                            uri='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Number_2_in_light_blue_rounded_square.svg/200px-Number_2_in_light_blue_rounded_square.svg.png'
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Number_3_in_yellow_rounded_square.svg/200px-Number_3_in_yellow_rounded_square.svg.png',
+                    title='這是第三個模塊',
+                    text='最多可以放十個',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='回傳一個訊息',
+                            data='這是ID=3'
+                        ),
+                        MessageTemplateAction(
+                            label='用戶發送訊息',
+                            text='我知道這是3'
+                        ),
+                        URITemplateAction(
+                            label='uri2',
+                            uri='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Number_3_in_yellow_rounded_square.svg/200px-Number_3_in_yellow_rounded_square.svg.png'
+                        )
+                    ]
+                )
+            ]
+        )
+    )
+    return message
     
     
     
