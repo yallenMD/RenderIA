@@ -80,74 +80,24 @@ def news_carousel(subject,news_key):
     url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
     response = requests.get(url)
     response = response.json()
-    titles = [summarize(article['title']) for article in response['articles'][:5]]
-    descriptions = [summarize(article['description']) for article in response['articles'][:5]]
 
-    urls = [article['url'] for article in response['articles'][:5]]
-    images = [article['urlToImage'] for article in response['articles'][:5]]
+    articles = response['articles'][:10]
+
+    titles = [summarize(article['title']) for article in articles]
+    descriptions = [summarize(article['description']) for article in articles]
+
+    urls = [article['url'] for article in articles]
+    images = [article['urlToImage'] for article in articles]
 
 
     message = TemplateSendMessage(
-        alt_text='Top headlines requested by you',
+        alt_text='Top 10 headlines requested by you',
         template=CarouselTemplate(
-            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='GO TO ARTICLE',uri=urls[i])]) for i in range(5)]
+            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(5)]
         )
     )
     return message
 
-
-def news_carousel_close(subject,news_key):
-    url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
-    response = requests.get(url)
-    response = response.json()
-    titles = [summarize(article['title']) for article in response['articles'][:5]]
-    descriptions = [summarize(article['description']) for article in response['articles'][:5]]
-
-    urls = [article['url'] for article in response['articles'][:5]]
-    images = [article['urlToImage'] for article in response['articles'][:5]]
-
-
-    message = TemplateSendMessage(
-        alt_text='Top headlines requested by you',
-        template=CarouselTemplate(
-            columns=[
-                CarouselColumn(
-                    thumbnail_image_url=images[0],
-                    title=titles[0],
-                    text=descriptions[0],
-                    actions=[
-                        URITemplateAction(
-                            label='GO TO ARTICLE',
-                            uri=urls[0]
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    thumbnail_image_url=images[1],
-                    title=titles[1],
-                    text=descriptions[1],
-                    actions=[
-                        URITemplateAction(
-                            label='GO TO ARTICLE',
-                            uri=urls[1]
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    thumbnail_image_url=images[2],
-                    title=titles[2],
-                    text=descriptions[2],
-                    actions=[
-                        URITemplateAction(
-                            label='GO TO ARTICLE',
-                            uri=urls[2]
-                        )
-                    ]
-                )
-            ]
-        )
-    )
-    return message
     
     
     
