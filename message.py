@@ -55,12 +55,14 @@ def currency_conversion(exchange_from,exchange_to,amount,api_key):
     return f"{original_amount} {exchange_from} is equivalent to {new_amount} {exchange_to}"
 
 def news(subject,news_key):
-    all_articles = newsapi.get_top_headlines(q='bitcoin', sources='bbc-news,the-verge', category='business', language='en', country='us')
-    first_five_articles = [(article['title'], article['url']) for article in all_articles['articles'][:5]]
-    response = ""
+    url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
+    response = requests.get(url)
+    response = response.json()
+    first_five_articles = [(article['title'], article['url']) for article in response['articles'][:5]]
+    articles = ""
     for title, url in first_five_articles:
-        response += f"Title: {title}\nURL: {url}\n---\n"
-    return response
+        articles += f"Title: {title}\nURL: {url}\n---\n"
+    return articles
     
     
     
