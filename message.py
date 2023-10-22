@@ -78,7 +78,7 @@ def news_carousel(subject,news_key):
     url = f"https://newsapi.org/v2/everything?q={subject}&apiKey={news_key}"
     response = requests.get(url)
     response = response.json()
-    titles = [article['title'] for article in response['articles']]
+    titles = [summarize(article['title']) for article in response['articles']]
     descriptions = [summarize(article['description']) for article in response['articles']]
 
     urls = [article['url'] for article in response['articles']]
