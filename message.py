@@ -48,8 +48,8 @@ def price(ticker,api_key):
     url = f"https://api.twelvedata.com/price?symbol={ticker}&apikey={api_key}"
     response = requests.get(url)
     response = response.json()
-    price = response['price']
-    return price
+    price = response['price'][:-3]
+    return f"The price of {ticker} is {price} USD"
 
 def exchange_rate(exchange_from,exchange_to,api_key):
     url = f"https://api.twelvedata.com/exchange_rate?symbol={exchange_from}/{exchange_to}&apikey={api_key}"
