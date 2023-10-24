@@ -99,9 +99,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif topic_classification(msg)[0] == 'Currency':
-        amount = currency_classification(msg)[1]
-        currency1 = currency_classification(msg)[2]
-        currency2 = currency_classification(msg)[3]
+        amount = currency_classification(msg)[2]
+        currency1 = currency_classification(msg)[0]
+        currency2 = currency_classification(msg)[1]
         message = TextSendMessage(text=currency_conversion(currency1,currency2,amount,api_key))
 
     elif topic_classification(msg)[0] == 'News':
