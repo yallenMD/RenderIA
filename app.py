@@ -65,7 +65,18 @@ def called_chat(message):
 def topic_classification(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency. Make sure to return ONLY the option, meaning only one word. Also, if there is a certain stock specified in the request such as Microsoft, also return the ticker symbol of the stock. Otherwise, return N/A. On the otherhand if two currencies are given for exchange rates, you will first return the amount of money in the original currency that is being exchanged, then return the symbol of the currency we are changin from and then the symbol of the currency we are changing to. So in summary you will return something following either this format: "Option Ticker" or this format: "Option Amount Currency1 Currency2'},
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency. Make sure to return ONLY the option, meaning only one word. Also, if there is a certain stock specified in the request such as Microsoft, also return the ticker symbol of the stock. Otherwise, return N/A. So in summary you will return something following either this format: "Option Ticker"'},
+                    {"role": "user", "content": text}
+                 ])
+    # 重組回應
+    answer = response['choices'][0]['message']['content']
+    answer = answer.split(" ")
+    return answer
+
+def currency_classification(text):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. You will receive an input from a user asking to exchange a certain amount of money from one currency to another. You will determine the currency symbols of the relevant currencies. Based on the given information you will return something following this format: "CurrencySymbol1 CurrencySymbol2 Amount"'},
                     {"role": "user", "content": text}
                  ])
     # 重組回應
@@ -88,11 +99,10 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif topic_classification(msg)[0] == 'Currency':
-        if topic_classification(msg)[1] != 'N/A':
-            amount = topic_classification(msg)[1]
-            currency1 = topic_classification(msg)[2]
-            currency2 = topic_classification(msg)[3]
-            message = TextSendMessage(text=currency_conversion(currency1,currency2,amount,api_key))
+        amount = currency_classification(msg)[1]
+        currency1 = currency_classification(msg)[2]
+        currency2 = currency_classification(msg)[3]
+        message = TextSendMessage(text=currency_conversion(currency1,currency2,amount,api_key))
 
     elif topic_classification(msg)[0] == 'News':
         if topic_classification(msg)[1] == 'N/A':
