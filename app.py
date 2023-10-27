@@ -74,7 +74,7 @@ def topic_classification(text):
 def stock_classification(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the ticker symbol of the relevant stock in subject. If there is no specified stock, return "Stocks." In summary, you will return one word, that being either "Stocks" or a ticker symbol'},
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the ticker symbol of the relevant stock in subject. If there is no specified stock, return "Stocks." In summary, you will return one word, that being either "Stocks" or a ticker symbol. For example, if the input involves microsoft stock, you will return "MSFT"'},
                     {"role": "user", "content": text}
                  ])
     answer = response['choices'][0]['message']['content']
