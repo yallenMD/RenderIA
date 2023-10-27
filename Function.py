@@ -15,7 +15,7 @@ def function_list():
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
-                            text='Hey chat, what is a 401k and do I need it？'
+                            text='What is the S&P 500 and how does it work?????'
                         )
                     ]
                 ),
