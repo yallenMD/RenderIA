@@ -76,13 +76,10 @@ def currency_classification(text):
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. You will receive an input from a user asking to exchange a certain amount of money from one currency to another. You will determine the currency symbols of the relevant currencies. Based on the given information you will return something following this format: "CurrencySymbol1 CurrencySymbol2 Amount"'},
                     {"role": "user", "content": text}
                  ])
-    # 重組回應
     answer = response['choices'][0]['message']['content']
     answer = answer.split(" ")
     return answer
 
-
-# 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
