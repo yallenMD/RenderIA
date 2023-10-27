@@ -68,6 +68,7 @@ def topic_classification(text):
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency, Functions, N/A,. Make sure to return ONLY the option, meaning only one word.'},
                     {"role": "user", "content": text}
                  ])
+    answer = response['choices'][0]['message']['content']
     return answer
 
 def stock_classification(text):
@@ -76,6 +77,7 @@ def stock_classification(text):
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the ticker symbol of the relevant stock in subject. If there is no specified stock, return "Stocks." In summary, you will return one word, that being either "Stocks" or a ticker symbol'},
                     {"role": "user", "content": text}
                  ])
+    answer = response['choices'][0]['message']['content']
     return answer
 
 def currency_classification(text):
