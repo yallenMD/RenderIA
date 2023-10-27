@@ -99,7 +99,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif  topic_classification(msg) == 'Price':
-        if stock_classification(msg) != 'N/A'
+        if stock_classification(msg) != 'N/A':
             ticker = stock_classification(msg)
             message = TextSendMessage(text=price(ticker, api_key))
             line_bot_api.reply_message(event.reply_token, message)
