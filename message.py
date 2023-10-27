@@ -30,6 +30,7 @@ def GPT_message(text):
                  ])
     # 重組回應
     answer = response['choices'][0]['message']['content']
+    return answer
 
 def summarize(text):
     if len(text) <= 40:

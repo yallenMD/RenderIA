@@ -52,16 +52,6 @@ def callback():
     return 'OK'
     
 
-def called_chat(message):
-    # Convert the message to lowercase and strip any leading or trailing whitespace
-    message = message.lower().strip()
-    
-    # Check if the message starts with "hey chat"
-    if message.startswith("hey chat"):
-        return True
-    else:
-        return False
-
 def topic_classification(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
@@ -96,11 +86,7 @@ def currency_classification(text):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if called_chat(msg):
-        message = TextSendMessage(text=GPT_message(msg))
-        line_bot_api.reply_message(event.reply_token, message)
-
-    elif  topic_classification(msg) == 'Price':
+    if  topic_classification(msg) == 'Price':
         if stock_classification(msg) != 'N/A':
             ticker = stock_classification(msg)
             message = TextSendMessage(text=price(ticker, api_key))
@@ -130,7 +116,7 @@ def handle_message(event):
         message = function_list()
         line_bot_api.reply_message(event.reply_token, message)
     else:
-        message = TextSendMessage(text=msg)
+        message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
 
 @handler.add(PostbackEvent)
