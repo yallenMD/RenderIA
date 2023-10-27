@@ -108,8 +108,8 @@ def handle_message(event):
             message = TextSendMessage(text=news('Stock Market',news_key))
             line_bot_api.reply_message(event.reply_token, message)
         else:
-            topic = topic_classification(msg)
-            message = news_carousel(topic,news_key)
+            stock = stock_classification(msg)
+            message = news_carousel(stock,news_key)
             line_bot_api.reply_message(event.reply_token, message)
 
     elif topic_classification(msg) == 'Functions':
