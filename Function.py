@@ -36,7 +36,7 @@ def function_list():
                         MessageTemplateAction(
                             label='Try it',
                             text='Can you please provide me some useful news articles about Gamestop Stock?'
-                           )
+                        )
                     ]
                 )
             ]
