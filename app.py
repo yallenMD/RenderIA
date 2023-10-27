@@ -65,12 +65,17 @@ def called_chat(message):
 def topic_classification(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency. Make sure to return ONLY the option, meaning only one word. Also, if there is a certain stock specified in the request such as Microsoft, also return the ticker symbol of the stock. Otherwise, return N/A. So in summary you will return something following either this format: "Option Ticker"'},
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency, Functions, N/A,. Make sure to return ONLY the option, meaning only one word.'},
                     {"role": "user", "content": text}
                  ])
-    # 重組回應
-    answer = response['choices'][0]['message']['content']
-    answer = answer.split(" ")
+    return answer
+
+def stock_classification(text):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the ticker symbol of the relevant stock in subject. If there is no specified stock, return "Stocks." In summary, you will return one word, that being either "Stocks" or a ticker symbol'},
+                    {"role": "user", "content": text}
+                 ])
     return answer
 
 def currency_classification(text):
@@ -93,35 +98,33 @@ def handle_message(event):
         message = TextSendMessage(text=GPT_message(msg))
         line_bot_api.reply_message(event.reply_token, message)
 
-    elif  topic_classification(msg)[0] == 'Price' and topic_classification(msg)[1] != 'N/A':
-        ticker = topic_classification(msg)[1]
-        message = TextSendMessage(text=price(ticker, api_key))
-        line_bot_api.reply_message(event.reply_token, message)
+    elif  topic_classification(msg) == 'Price':
+        if stock_classification(msg) != 'N/A'
+            ticker = stock_classification(msg)
+            message = TextSendMessage(text=price(ticker, api_key))
+            line_bot_api.reply_message(event.reply_token, message)
+        else:
+            ticker = 'NASDAQ'
+            message = TextSendMessage(text=price(ticker, api_key))
+            line_bot_api.reply_message(event.reply_token, message)
 
-    elif topic_classification(msg)[0] == 'Currency':
+    elif topic_classification(msg) == 'Currency':
         amount = currency_classification(msg)[2]
         currency1 = currency_classification(msg)[0]
         currency2 = currency_classification(msg)[1]
         message = TextSendMessage(text=currency_conversion(currency1,currency2,amount,api_key))
         line_bot_api.reply_message(event.reply_token, message)
         
-    elif topic_classification(msg)[0] == 'News':
-        if topic_classification(msg)[1] == 'N/A':
-            message = TextSendMessage(text=news('Stocks',news_key))
+    elif topic_classification(msg) == 'News':
+        if stock_classification(msg) == 'N/A':
+            message = TextSendMessage(text=news('Stock Market',news_key))
             line_bot_api.reply_message(event.reply_token, message)
         else:
-            topic = topic_classification(msg)[1]
+            topic = topic_classification(msg)
             message = news_carousel(topic,news_key)
             line_bot_api.reply_message(event.reply_token, message)
 
-
-    elif '旋轉木馬' in msg:
-        message = Carousel_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '圖片畫廊' in msg:
-        message = test()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '功能列表' in msg:
+    elif topic_classification(msg) == 'Functions':
         message = function_list()
         line_bot_api.reply_message(event.reply_token, message)
     else:

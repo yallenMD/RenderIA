@@ -38,6 +38,7 @@ def function_list():
                             text='Can you please provide me some useful news articles about Gamestop Stock?'
                            )
                     ]
+                )
             ]
         )
     )
