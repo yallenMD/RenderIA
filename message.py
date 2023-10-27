@@ -25,9 +25,11 @@ newsapi = NewsApiClient(api_key=news_key)
 def GPT_message(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", 
-        messages=[{"role": "system", "content": 'You are a helpful financial analyst who understands stocks and crypto'},
+        messages=[{"role": "system", "content": 'You are a helpful financial analyst chatbot who understands stocks and crypto. '},
                     {"role": "user", "content": text}
                  ])
+        max_tokens=25
+
     # 重組回應
     answer = response['choices'][0]['message']['content']
     return answer
