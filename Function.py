@@ -11,7 +11,7 @@ def function_list():
             columns=[
                 CarouselColumn(
                     title='AI Consultant',
-                    text='Receive top-notch AI powered stock trading consultation',
+                    text='Receive top-notch AI powered stock trading consultation.',
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
@@ -21,7 +21,7 @@ def function_list():
                 ),
                 CarouselColumn(
                     title='Real-time market information',
-                    text='Stock Quotes, Prices, Currency Exchange rates etc. I can do it all!',
+                    text='Stock Quotes, Prices, Exchange rates etc. I can do it all!',
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
@@ -31,7 +31,7 @@ def function_list():
                 ),
                 CarouselColumn(
                     title='Top Headlines',
-                    text='Receive the the hottest news headlines about the topic of your choice',
+                    text='Receive the latest news headlines relevant to any topic.',
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
