@@ -108,14 +108,9 @@ def Confirm():
         template=ConfirmTemplate(
             text="Would you like to know what I can do?",
             actions=[
-                PostbackTemplateAction(
-                    label="馬上註冊",
-                    text="現在、立刻、馬上",
-                    data="會員註冊"
-                ),
                 MessageTemplateAction(
-                    label="查詢其他功能",
-                    text="查詢其他功能"
+                    label="Yes!",
+                    text="I would like to know what you can do!"
                 )
             ]
         )
