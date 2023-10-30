@@ -1,3 +1,4 @@
+#Import required modules
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
@@ -9,6 +10,8 @@ import requests
 import json
 from newsapi import NewsApiClient
 
+#Initiate enviornment variables as API keys
+#Channel Access Token
 line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
 handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
@@ -18,7 +21,7 @@ api_key = os.getenv('TWELVEDATA_API_KEY')
 openai.api_key = os.getenv('OPENAI_API_KEY')
 #News API Key
 news_key = os.getenv('NEWS_API_KEY')
-# Init
+#Init News API Key
 newsapi = NewsApiClient(api_key=news_key)
 
 def GPT_message(text):
@@ -95,6 +98,26 @@ def news_carousel(subject,news_key):
         alt_text='Top 10 headlines requested by you',
         template=CarouselTemplate(
             columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(5)]
+        )
+    )
+    return message
+
+def Confirm():
+    message = TemplateSendMessage(
+        alt_text='Would you like to know what I can do?',
+        template=ConfirmTemplate(
+            text="Would you like to know what I can do?",
+            actions=[
+                PostbackTemplateAction(
+                    label="馬上註冊",
+                    text="現在、立刻、馬上",
+                    data="會員註冊"
+                ),
+                MessageTemplateAction(
+                    label="查詢其他功能",
+                    text="查詢其他功能"
+                )
+            ]
         )
     )
     return message

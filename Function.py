@@ -6,7 +6,7 @@ from linebot.models import *
 
 def function_list():
     message = TemplateSendMessage(
-        alt_text='Here is what I can do',
+        alt_text='Function List',
         template=CarouselTemplate(
             columns=[
                 CarouselColumn(

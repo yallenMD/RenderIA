@@ -9,18 +9,18 @@ from linebot.exceptions import (
 from linebot.models import *
 
 
-#======這裡是呼叫的檔案內容=====
+#======File content=====
 from message import *
 from new import *
 from Function import *
-#======這裡是呼叫的檔案內容=====
+#======File content=====
 
-#======python的函數庫==========
+#======Library==========
 import tempfile, os
 import datetime
 import time
 import openai
-#======python的函數庫==========
+#======Library==========
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -36,7 +36,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 news_key = os.getenv('NEWS_API_KEY')
 
 
-# 監聽所有來自 /callback 的 Post Request
+#Listen for all Post Requests from /callback
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -129,6 +129,11 @@ def welcome(event):
     name = profile.display_name
     message = TextSendMessage(text=f'Hey, {name}! Welcome!')
     line_bot_api.reply_message(event.reply_token, message)
+    message = TextSendMessage(text='I am Stockbot, your personal financial assistant!')
+    line_bot_api.reply_message(event.reply_token, message)
+    message = Confirm()
+    line_bot_api.reply_message(event.reply_token, message)
+
         
         
 import os
