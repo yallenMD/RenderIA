@@ -114,7 +114,7 @@ def Confirm():
                 ),
                     MessageTemplateAction(
                     label="No thanks.",
-                    text=""
+                    text="It's all good"
                 )
             ]
         )
