@@ -111,6 +111,10 @@ def Confirm():
                 MessageTemplateAction(
                     label="Yes!",
                     text="I would like to know what you can do!"
+                ),
+                    MessageTemplateAction(
+                    label="No thanks.",
+                    text=""
                 )
             ]
         )
