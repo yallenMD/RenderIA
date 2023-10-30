@@ -83,7 +83,10 @@ def currency_classification(text):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if  topic_classification(msg) == 'Price':
+    if 'hello' in msg:
+        message = Confirm()
+        line_bot_api.reply_message(event.reply_token, message)
+    elif  topic_classification(msg) == 'Price':
         if stock_classification(msg) != 'N/A':
             ticker = stock_classification(msg)
             message = TextSendMessage(text=price(ticker, api_key))
