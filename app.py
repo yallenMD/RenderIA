@@ -93,6 +93,10 @@ def handle_message(event):
             message = TextSendMessage(text=price(ticker, api_key))
             line_bot_api.reply_message(event.reply_token, message)
 
+    elif 'Hello!' in msg:
+        message = Confirm()
+        line_bot_api.reply_message(event.reply_token, message)
+
     elif topic_classification(msg) == 'Currency':
         amount = currency_classification(msg)[2]
         currency1 = currency_classification(msg)[0]
@@ -120,7 +124,7 @@ def handle_message(event):
 def handle_message(event):
     print(event.postback.data)
 
-@handler.add(followEvent)
+@handler.add(MemberJoinedEvent)
 def welcome(event):
     uid = event.joined.members[0].user_id
     gid = event.source.group_id
