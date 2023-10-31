@@ -120,8 +120,7 @@ def handle_message(event):
 def handle_message(event):
     print(event.postback.data)
 
-
-@handler.add(MemberFollowEvent)
+@handler.add(followEvent)
 def welcome(event):
     uid = event.joined.members[0].user_id
     gid = event.source.group_id
