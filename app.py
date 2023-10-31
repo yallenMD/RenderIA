@@ -121,7 +121,7 @@ def handle_message(event):
     print(event.postback.data)
 
 
-@handler.add(MemberJoinedEvent)
+@handler.add(MemberFollowEvent)
 def welcome(event):
     uid = event.joined.members[0].user_id
     gid = event.source.group_id
