@@ -85,7 +85,7 @@ def news_carousel(subject,news_key):
     response = requests.get(url)
     response = response.json()
 
-    articles = response['articles'][:10]
+    articles = response['articles'][:5]
 
     titles = [summarize(article['title']) for article in articles]
     descriptions = [summarize(article['description']) for article in articles]
@@ -95,9 +95,9 @@ def news_carousel(subject,news_key):
 
 
     message = TemplateSendMessage(
-        alt_text='Top 10 headlines requested by you',
+        alt_text='Top 5 headlines requested by you',
         template=CarouselTemplate(
-            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(10)]
+            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(5)]
         )
     )
     return message
