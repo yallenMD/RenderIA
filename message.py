@@ -97,7 +97,7 @@ def news_carousel(subject,news_key):
     message = TemplateSendMessage(
         alt_text='Top 10 headlines requested by you',
         template=CarouselTemplate(
-            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(5)]
+            columns=[CarouselColumn(thumbnail_image_url=images[i],title=titles[i],text=descriptions[i],actions=[URITemplateAction(label='Link to article',uri=urls[i])]) for i in range(10)]
         )
     )
     return message
