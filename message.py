@@ -27,11 +27,11 @@ news_key = os.getenv('NEWS_API_KEY')
 newsapi = NewsApiClient(api_key=news_key)
 
 def GPT_message(text):
-    response = client.completions.create(
-        model="gpt-3.5-turbo", 
+    response = client.chat.completions.create( 
         messages=[{"role": "system", "content": 'You are a helpful financial analyst who understands stocks and crypto. Pretend like you are texting someone and limit the text messages to an appropriate length.'},
                     {"role": "user", "content": text}
-                 ])
+        ],
+        model="gpt-3.5-turbo",)
 
     # 重組回應
     answer = response['choices'][0]['message']['content']
@@ -41,11 +41,11 @@ def summarize(text):
     if len(text) <= 40:
         return text
     
-    response = client.completions.create(
-        model="gpt-3.5-turbo", 
+    response = client.chat.completions.create( 
         messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the news article titles and descriptions you are given into strictly 40 characters or less. (White spaces are considered a character)'},
                     {"role": "user", "content": text}
-                 ])
+        ],
+        model="gpt-3.5-turbo",)
     # 重組回應
     answer = response['choices'][0]['message']['content']
     return answer if len(answer) <= 40 else answer[:37]+'...'
