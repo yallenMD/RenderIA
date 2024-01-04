@@ -27,7 +27,7 @@ news_key = os.getenv('NEWS_API_KEY')
 newsapi = NewsApiClient(api_key=news_key)
 
 def GPT_message(text):
-    response = openai.ChatCompletion.create(
+    response = client.completions.create(
         model="gpt-3.5-turbo", 
         messages=[{"role": "system", "content": 'You are a helpful financial analyst who understands stocks and crypto. Pretend like you are texting someone and limit the text messages to an appropriate length.'},
                     {"role": "user", "content": text}
