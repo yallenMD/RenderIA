@@ -19,7 +19,9 @@ from Function import *
 import tempfile, os
 import datetime
 import time
-import openai
+client = OpenAI(
+  api_key=os.getenv('OPENAI_API_KEY'),  # this is also the default, it can be omitted
+)
 #======Library==========
 
 app = Flask(__name__)
@@ -53,7 +55,7 @@ def callback():
     
 
 def topic_classification(text):
-    response = openai.ChatCompletion.create(
+    response = client.completions.create(
         model="gpt-3.5-turbo", 
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. For each input, you will respond with one of the corresponding options: Quote, Price, News, Currency, Functions, N/A,. Make sure to return ONLY the option, meaning only one word.'},
                     {"role": "user", "content": text}
@@ -62,7 +64,7 @@ def topic_classification(text):
     return answer
 
 def stock_classification(text):
-    response = openai.ChatCompletion.create(
+    response = client.completions.create(
         model="gpt-3.5-turbo", 
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the ticker symbol of the relevant stock in subject. If there is no specified stock, return "Stocks." In summary, you will return one word, that being either "Stocks" or a ticker symbol. For example, if the input involves microsoft stock, you will return "MSFT"'},
                     {"role": "user", "content": text}
@@ -71,7 +73,7 @@ def stock_classification(text):
     return answer
 
 def currency_classification(text):
-    response = openai.ChatCompletion.create(
+    response = client.completions.create(
         model="gpt-3.5-turbo", 
         messages=[{"role": "system", "content": 'You are a professional text decoder who can accurately determine the main request of an input. You will receive an input from a user asking to exchange a certain amount of money from one currency to another. You will determine the currency symbols of the relevant currencies. Based on the given information you will return something following this format: "CurrencySymbol1 CurrencySymbol2 Amount"'},
                     {"role": "user", "content": text}

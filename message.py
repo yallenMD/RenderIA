@@ -41,7 +41,7 @@ def summarize(text):
     if len(text) <= 40:
         return text
     
-    response = openai.ChatCompletion.create(
+    response = client.completions.create(
         model="gpt-3.5-turbo", 
         messages=[{"role": "system", "content": 'You are a professional text summarizer that will summarize the news article titles and descriptions you are given into strictly 40 characters or less. (White spaces are considered a character)'},
                     {"role": "user", "content": text}
