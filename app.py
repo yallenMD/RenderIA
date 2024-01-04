@@ -59,7 +59,7 @@ def topic_classification(text):
                     {"role": "user", "content": text}
         ],
         model="gpt-3.5-turbo",)
-    answer = response
+    answer = response['choices'][0]['message']['content']
     return answer
 
 def stock_classification(text):
@@ -68,7 +68,7 @@ def stock_classification(text):
                     {"role": "user", "content": text}
         ],
         model="gpt-3.5-turbo",)
-    answer = response
+    answer = response['choices'][0]['message']['content']
     return answer
 
 def currency_classification(text):
@@ -77,7 +77,7 @@ def currency_classification(text):
                     {"role": "user", "content": text}
         ],
         model="gpt-3.5-turbo",)
-    answer = response
+    answer = response['choices'][0]['message']['content']
     answer = answer.split(" ")
     return answer
 
