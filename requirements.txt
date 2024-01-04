@@ -1,5 +1,5 @@
 line-bot-sdk
 flask
 gunicorn
-openai
+openai>=1.0.0
 newsapi-python
