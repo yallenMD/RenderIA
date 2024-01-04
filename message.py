@@ -2,17 +2,17 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
-from openai import OpenAI
-
-client = OpenAI(
-  api_key=os.getenv['OPENAI_API_KEY'],  # this is also the default, it can be omitted
-)
 import tempfile, os
 import datetime
 import time
 import requests
 import json
 from newsapi import NewsApiClient
+from openai import OpenAI
+
+client = OpenAI(
+  api_key=os.getenv['OPENAI_API_KEY'],  # this is also the default, it can be omitted
+)
 
 #Initiate enviornment variables as API keys
 #Channel Access Token
