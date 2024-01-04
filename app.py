@@ -19,6 +19,7 @@ from Function import *
 import tempfile, os
 import datetime
 import time
+from openai import OpenAI
 client = OpenAI(
   api_key=os.getenv('OPENAI_API_KEY'),  # this is also the default, it can be omitted
 )
@@ -32,8 +33,6 @@ line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 # Twelve API Key
 api_key = os.getenv('TWELVEDATA_API_KEY')
-# Open AI API Key
-openai.api_key = os.getenv('OPENAI_API_KEY')
 #News API Key
 news_key = os.getenv('NEWS_API_KEY')
 
