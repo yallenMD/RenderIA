@@ -34,7 +34,7 @@ def GPT_message(text):
         model="gpt-3.5-turbo",)
 
     # 重組回應
-    answer = response['choices'][0]['message']['content']
+    answer = response
     return answer
 
 def summarize(text):
@@ -47,7 +47,7 @@ def summarize(text):
         ],
         model="gpt-3.5-turbo",)
     # 重組回應
-    answer = response['choices'][0]['message']['content']
+    answer = response
     return answer if len(answer) <= 40 else answer[:37]+'...'
 
 def price(ticker,api_key):
