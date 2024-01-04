@@ -11,7 +11,7 @@ from newsapi import NewsApiClient
 from openai import OpenAI
 
 client = OpenAI(
-  api_key=os.getenv['OPENAI_API_KEY'],  # this is also the default, it can be omitted
+  api_key=os.getenv('OPENAI_API_KEY'),  # this is also the default, it can be omitted
 )
 
 #Initiate enviornment variables as API keys
