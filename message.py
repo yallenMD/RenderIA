@@ -28,7 +28,7 @@ newsapi = NewsApiClient(api_key=news_key)
 
 def GPT_message(text):
     response = client.chat.completions.create( 
-        messages=[{"role": "system", "content": 'You are a helpful financial analyst who understands stocks and crypto. Pretend like you are texting someone and limit the text messages to an appropriate length.'},
+        messages=[{"role": "system", "content": 'You are a helpful financial analyst and advisor who understands stocks and crypto. Pretend like you are texting someone and limit the text messages to an appropriate length. So you do not need to tell someone to consult with a financial advisor as well because you are the financial advisor.'},
                     {"role": "user", "content": text}
         ],
         model="gpt-3.5-turbo",)
