@@ -106,7 +106,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
         
     elif topic_classification(msg) == 'News':
-        if stock_classification(msg) == 'N/A':
+        if stock_classification(msg) == 'Stocks':
             message = TextSendMessage(text=news('Stock Market',news_key))
             line_bot_api.reply_message(event.reply_token, message)
         else:
