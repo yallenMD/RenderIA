@@ -15,7 +15,7 @@ def function_list():
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
-                            text='What is the S&P 500 and how does it work?????'
+                            text='Should I invest in meme stocks?'
                         )
                     ]
                 ),
@@ -35,7 +35,7 @@ def function_list():
                     actions=[
                         MessageTemplateAction(
                             label='Try it',
-                            text='Can you please provide me some useful news articles about Gamestop Stock?'
+                            text='Can you please provide me some useful news articles about Apple Stock?'
                         )
                     ]
                 )
